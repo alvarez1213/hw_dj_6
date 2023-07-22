@@ -1,0 +1,106 @@
+GET http://127.0.0.1:8000/api/v1/products/
+
+###
+# примеры API-запросов
+
+@baseUrl = http://localhost:8000/api/v1
+
+# создание продукта
+POST {{baseUrl}}/products/
+Content-Type: application/json
+{
+  "title": "Помидор",
+  "description": "Лучшие помидоры на рынке"
+}
+
+###
+# получение продуктов
+GET {{baseUrl}}/products/
+Content-Type: application/json
+
+###
+# обновление продукта
+PATCH {{baseUrl}}/products/5/
+Content-Type: application/json
+
+{
+  "description": "Самые сочные и ароматные помидорки"
+}
+
+###
+# удаление продукта
+DELETE {{baseUrl}}/products/6/
+Content-Type: application/json
+
+
+###
+# создание склада
+POST {{baseUrl}}/stocks/
+Content-Type: application/json
+
+{
+  "address": "Stock -777",
+  "positions": [
+    {
+      "product": 10,
+      "quantity": 20,
+      "price": 55555
+    },
+    {
+      "product": 9,
+      "quantity": 10,
+      "price": 44444
+    }
+  ]
+}
+
+###
+# удаление склада
+DELETE {{baseUrl}}/stocks/7/
+Content-Type: application/json
+
+###
+# обновляем записи на складе
+PATCH {{baseUrl}}/stocks/8/
+Content-Type: application/json
+
+{
+  "positions": [
+    {
+      "product": 10,
+      "quantity": 9,
+      "price": 999999
+    },
+    {
+      "product": 9,
+      "quantity": 7,
+      "price": 777777
+    }
+  ]
+}
+
+###
+# поиск складов, где есть определенный продукт
+GET {{baseUrl}}/stocks/?products=10
+Content-Type: application/json
+
+###
+
+# поиск продуктов по названию и описанию
+GET {{baseUrl}}/products/?q=помидор
+Content-Type: application/json
+
+###
+# продукты с сортировкой
+GET {{baseUrl}}/products/?order=-id
+Content-Type: application/json
+
+###
+# поиск складов, где есть определенный продукт
+GET {{baseUrl}}/stocks/?products__product__title=помидор
+Content-Type: application/json
+
+###
+# поиск складов, где есть определенный продукт
+GET {{baseUrl}}/stocks/?products__product=10
+Content-Type: application/json
