@@ -43,6 +43,10 @@ class StockSerializer(serializers.ModelSerializer):
 
         # loop through positions
         for p in positions:
-            StockProduct.objects.update_or_create(stock=stock, **p)
+            sp = StockProduct.objects.filter(stock=stock, product=p['product'], price=p['price'])
+            if sp:
+                sp.update(quantity=p['quantity'])
+            else:
+                StockProduct.objects.create(stock=stock, **p)
 
         return stock
